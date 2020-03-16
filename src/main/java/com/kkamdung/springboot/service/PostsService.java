@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kkamdung.springboot.domain.posts.Posts;
 import com.kkamdung.springboot.domain.posts.PostsRepository;
+import com.kkamdung.springboot.web.dto.PostsResponseDto;
 import com.kkamdung.springboot.web.dto.PostsSaveRequestDto;
 import com.kkamdung.springboot.web.dto.PostsUpdateRequestDto;
 
@@ -31,12 +32,12 @@ public class PostsService {
 		return id;
 	}
 
+	@Transactional(readOnly = true)
+	public PostsResponseDto findById(Long id) {
+		Posts posts = postsRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+		
+		return new PostsResponseDto(posts);
+	}
+
 }
-//public Long update(Long id, PostsUpdateRequestDto requestDto) {
-//    Posts posts = postsRepository.findById(id)
-//            .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
-//
-//    posts.update(requestDto.getTitle(), requestDto.getContent());
-//
-//    return id;
-//}
