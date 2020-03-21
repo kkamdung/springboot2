@@ -101,3 +101,5 @@ gradle-app.setting
 
 ### Gradle Patch ###
 **/build/
+
+application-oauth.properties
